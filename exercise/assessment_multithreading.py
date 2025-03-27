@@ -41,15 +41,15 @@ def extract_movie_details(movie_link):
           plot_text = plot_text_element.get_text().strip().replace('\n', '')
           print(plot_text)
 
-      # print("Detalhes extraídos:", title, date, rating, plot_text)  # Adicionado para depuração
+    
 
       if all([title, date, rating, plot_text]):
         with open('movies.csv', mode='a', newline='', encoding='utf-8') as file:
           movie_writer = csv.writer(file, delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL)
           movie_writer.writerow([title, date, rating, plot_text])
       else:
-        print("Detalhes incompletos, filme não adicionado.")  # Adicionado para depuração
-
+        print("Detalhes incompletos, filme não adicionado.")  
+        
     except requests.exceptions.RequestException as e:
       print(f"Erro na solicitação para {movie_link}: {e}")
     except AttributeError as e:
@@ -65,7 +65,7 @@ def extract_movies(soup):
         movie_links = ['https://imdb.com' + item.find('a')['href'] for item in movies_list_items if item.find('a')]
       else:
         print("Erro: Não foi possível encontrar a lista de filmes.")
-        movie_links = []  # Garante que movie_links seja uma lista vazia em caso de erro
+        movie_links = []  
 
 
       if movie_links:
